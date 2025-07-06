@@ -28,7 +28,7 @@ func TestPKDeposit(t *testing.T) {
 	cli := NewClient(vLog, &StarPagoInitParams{MERCHANT_ID, ACCESS_SECRET, IP, DEPOSIT_URL, WITHDRAW_URL, DEPOSIT_BACK_URL, WITHDRAW_BACK_URL})
 
 	//发请求
-	resp, err := cli.Deposit(GenKDepositRequestDemo())
+	resp, err := cli.Deposit(GenPKDepositRequestDemo())
 	if err != nil {
 		fmt.Printf("err:%s\n", err.Error())
 		return
@@ -37,7 +37,7 @@ func TestPKDeposit(t *testing.T) {
 }
 
 // 巴基斯坦
-func GenKDepositRequestDemo() StarPagoDepositReq {
+func GenPKDepositRequestDemo() StarPagoDepositReq {
 	return StarPagoDepositReq{
 		MerOrderNo: "323231224", //商户id
 		Currency:   "PKR",
