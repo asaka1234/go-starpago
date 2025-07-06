@@ -132,9 +132,9 @@ type StarPagoPKWithdrawReqExtra struct {
 
 // 菲律宾 extra
 type StarPagoPHWithdrawReqExtra struct {
-	Email string `json:"email"`
-	Phone string `json:"phone"` //或者是 mobile
-	//BankCode    string `json:"bankCode"`
+	Email       string `json:"email"`
+	Phone       string `json:"phone"` //或者是 mobile
+	BankCode    string `json:"bankCode"`
 	AccountNo   string `json:"accountNo"`
 	AccountName string `json:"accountName"`
 }
