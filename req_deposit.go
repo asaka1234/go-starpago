@@ -6,7 +6,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-// dai
+// 代收
 func (cli *Client) Deposit(req StarPagoDepositReq) (*StarPagoDepositResponse, error) {
 
 	rawURL := cli.Params.DepositUrl
@@ -15,7 +15,6 @@ func (cli *Client) Deposit(req StarPagoDepositReq) (*StarPagoDepositResponse, er
 	mapstructure.Decode(req, &params)
 	params["appId"] = cli.Params.MerchantId
 	params["notifyUrl"] = cli.Params.DepositBackUrl
-	params["payMethod"] = "PK_WALLET" //fixed.  巴基斯坦代收
 
 	//签名
 	signStr := utils.Sign(params, cli.Params.AccessKey)

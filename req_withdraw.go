@@ -15,7 +15,6 @@ func (cli *Client) Withdraw(req StarPagoWithdrawReq) (*StarPagoWithdrawResponse,
 	mapstructure.Decode(req, &params)
 	params["appId"] = cli.Params.MerchantId
 	params["notifyUrl"] = cli.Params.WithdrawBackUrl
-	params["payMethod"] = "PK_DF" //fixed 巴基斯坦代付
 
 	//签名
 	signStr := utils.Sign(params, cli.Params.AccessKey)

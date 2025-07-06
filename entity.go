@@ -24,10 +24,10 @@ type StarPagoDepositReq struct {
 	Currency   string      `json:"currency" mapstructure:"currency"`       // 金额币种, PKR
 	MerOrderNo string      `json:"merOrderNo" mapstructure:"merOrderNo"`   // 商户订单号, 商户订单号
 	Extra      interface{} `json:"extra" mapstructure:"extra"`
+	PayMethod  string      `json:"payMethod"` //代收方式
 	// 以下sdk帮搞
 	// AppID string `json:"appId"` // 应用号, appID
 	// NotifyURL  string                  `json:"notifyUrl"`           // 异步通知地址, 异步通知地址
-	// PayMethod  string                  `json:"payMethod"`        // fixed: PK_WALLET
 	// Sign string `json:"sign"` // 签名
 }
 
@@ -84,7 +84,7 @@ type StarPagoDepositRespParams struct {
 type StarPagoDepositBackReq struct {
 	Amount      int    `json:"amount" mapstructure:"amount"`           //订单金额
 	Attach      string `json:"attach" mapstructure:"attach"`           //附加信息（商户附加信息，原样返回）
-	OrderStatus int    `json:"orderStatus" mapstructure:"orderStatus"` //	订单状态支付中 0 1 -4, 支付成功 2 3, 支付失败 -1 -2 -3
+	OrderStatus int    `json:"orderStatus" mapstructure:"orderStatus"` //订单状态支付中 0 1 -4, 支付成功 2 3, 支付失败 -1 -2 -3
 	OrderNo     string `json:"orderNo" mapstructure:"orderNo"`         //交易订单号
 	MerOrderNo  string `json:"merOrderNo" mapstructure:"merOrderNo"`   //商户订单号
 	Currency    string `json:"currency" mapstructure:"currency"`       //金额币种
@@ -104,11 +104,11 @@ type StarPagoWithdrawReq struct {
 	Currency   string      `json:"currency" mapstructure:"currency"`     // 金额币种, PKR
 	Extra      interface{} `json:"extra" mapstructure:"extra"`           // 扩展信息 (代付给谁)
 	MerOrderNo string      `json:"merOrderNo" mapstructure:"merOrderNo"` // 商户订单号, 商户订单号
+	PayMethod  string      `json:"payMethod"`                            // 代付方式
 	//以下sdk设置
 	//AppID string `json:"appId"` // 应用号, appID
 	//NotifyURL string `json:"notifyUrl"` // 异步通知地址, 异步通知地址
 	//Sign  string `json:"sign"`  // 签名
-	//PayMethod  string                   `json:"payMethod"`  // 写死的: PK_DF
 }
 
 // 巴基斯坦 extra
