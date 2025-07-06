@@ -2,7 +2,7 @@ package go_exglobal
 
 import (
 	"crypto/tls"
-	"github.com/asaka1234/go-exglobal/utils"
+	"github.com/asaka1234/go-starpago/utils"
 	"github.com/mitchellh/mapstructure"
 )
 

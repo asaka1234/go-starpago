@@ -1,4 +1,4 @@
-module github.com/asaka1234/go-exglobal
+module github.com/asaka1234/go-starpago
 
 go 1.24.2
 

@@ -6,14 +6,15 @@
 
 鉴权
 ==============
-1. body的md5签名
+1. body签名
 
 
 回调地址
 ==============
-在psp端指定的callback地址, 所以无法在pre-order中动态指定
+动态notify (接口指定)
 
 
 Comment
 ===============
 1. both support deposit && withdrawl
+2. content-type是json
