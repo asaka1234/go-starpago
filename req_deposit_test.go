@@ -25,7 +25,7 @@ func (l VLog) Errorf(format string, args ...interface{}) {
 func TestPKDeposit(t *testing.T) {
 	vLog := VLog{}
 	//构造client
-	cli := NewClient(vLog, &StarPagoInitParams{MERCHANT_ID, ACCESS_SECRET, DEPOSIT_URL, WITHDRAW_URL, DEPOSIT_BACK_URL, WITHDRAW_BACK_URL})
+	cli := NewClient(vLog, &StarPagoInitParams{MERCHANT_ID, ACCESS_SECRET, IP, DEPOSIT_URL, WITHDRAW_URL, DEPOSIT_BACK_URL, WITHDRAW_BACK_URL})
 
 	//发请求
 	resp, err := cli.Deposit(GenKDepositRequestDemo())

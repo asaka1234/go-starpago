@@ -3,6 +3,7 @@ package go_starpago
 type StarPagoInitParams struct {
 	MerchantId int64  `json:"merchantId" mapstructure:"merchantId" config:"merchantId"  yaml:"merchantId"` // merchantId
 	AccessKey  string `json:"accessKey" mapstructure:"accessKey" config:"accessKey"  yaml:"accessKey"`     //接入秘钥
+	Ip         string `json:"ip" mapstructure:"ip" config:"ip"  yaml:"ip"`                                 //回调时,对方的ip白名单
 
 	DepositUrl      string `json:"depositUrl" mapstructure:"depositUrl" config:"depositUrl"  yaml:"depositUrl"`
 	WithdrawUrl     string `json:"withdrawUrl" mapstructure:"withdrawUrl" config:"withdrawUrl"  yaml:"withdrawUrl"`
