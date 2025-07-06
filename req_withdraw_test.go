@@ -1,17 +1,18 @@
-package go_exglobal
+package go_starpago
 
 import (
 	"fmt"
 	"testing"
 )
 
-func TestWithdraw(t *testing.T) {
+// 巴基斯坦 代付
+func TestPKWithdraw(t *testing.T) {
 	vLog := VLog{}
 	//构造client
-	cli := NewClient(vLog, &ExglobalInitParams{MERCHANT_ID, ACCESS_SECRET, BACK_SECRET, DEPOSIT_URL, WITHDRAW_URL})
+	cli := NewClient(vLog, &StarPagoInitParams{MERCHANT_ID, ACCESS_SECRET, DEPOSIT_URL, WITHDRAW_URL, DEPOSIT_BACK_URL, WITHDRAW_BACK_URL})
 
 	//发请求
-	resp, err := cli.Withdraw(GenWithdrawRequestDemo())
+	resp, err := cli.Withdraw(GenPKWithdrawRequestDemo())
 	if err != nil {
 		fmt.Printf("err:%s\n", err.Error())
 		return
@@ -19,16 +20,16 @@ func TestWithdraw(t *testing.T) {
 	fmt.Printf("resp:%+v\n", resp)
 }
 
-func GenWithdrawRequestDemo() ExglobalWithdrawReq {
-	return ExglobalWithdrawReq{
-		MerchantOrderNo:  "111",
-		CurrencyCoinName: "VND",
-		//ChannelCode:      "BankDirect", ////网银扫码:ScanQRCode, 银行直连:BankDirect
-		Amount:         "1000000",
-		BankCode:       "ACB",
-		BankName:       "ACB",
-		BankBranchName: "aa",
-		BankUserName:   "cy",
-		BankAccount:    "107719719971",
+func GenPKWithdrawRequestDemo() StarPagoWithdrawReq {
+	return StarPagoWithdrawReq{
+		MerOrderNo: "111",
+		Currency:   "PKR",
+		Amount:     "1000000",
+		Extra: StarPagoPKWithdrawReqExtra{
+			BankCode:  "BIPL",
+			AccountNo: "129171971",
+			Cnic:      "1891917917912",
+			Mobile:    "0312345678",
+		},
 	}
 }

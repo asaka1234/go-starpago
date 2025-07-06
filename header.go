@@ -1,4 +1,4 @@
-package go_exglobal
+package go_starpago
 
 func getHeaders() map[string]string {
 	return map[string]string{

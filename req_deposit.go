@@ -1,4 +1,4 @@
-package go_exglobal
+package go_starpago
 
 import (
 	"crypto/tls"
@@ -7,22 +7,22 @@ import (
 )
 
 // dai
-func (cli *Client) Deposit(req ExglobalDepositReq) (*ExglobalDepositResponse, error) {
+func (cli *Client) Deposit(req StarPagoDepositReq) (*StarPagoDepositResponse, error) {
 
 	rawURL := cli.Params.DepositUrl
 
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
-	params["uid"] = cli.Params.MerchantId
-	params["channelCode"] = "ScanQRCode"     //写死
-	params["bankCode"] = "AllBanksSupported" //写死
+	params["appId"] = cli.Params.MerchantId
+	params["notifyUrl"] = cli.Params.DepositBackUrl
+	params["payMethod"] = "PK_WALLET" //fixed.  巴基斯坦代收
 
 	//签名
 	signStr := utils.Sign(params, cli.Params.AccessKey)
-	params["signature"] = signStr
+	params["sign"] = signStr
 
 	//返回值会放到这里
-	var result ExglobalDepositResponse
+	var result StarPagoDepositResponse
 
 	_, err := cli.ryClient.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).

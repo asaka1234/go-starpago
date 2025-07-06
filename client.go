@@ -1,4 +1,4 @@
-package go_exglobal
+package go_starpago
 
 import (
 	"github.com/asaka1234/go-starpago/utils"
@@ -6,14 +6,14 @@ import (
 )
 
 type Client struct {
-	Params *ExglobalInitParams
+	Params *StarPagoInitParams
 
 	ryClient  *resty.Client
 	debugMode bool
 	logger    utils.Logger
 }
 
-func NewClient(logger utils.Logger, params *ExglobalInitParams) *Client {
+func NewClient(logger utils.Logger, params *StarPagoInitParams) *Client {
 	return &Client{
 		Params: params,
 

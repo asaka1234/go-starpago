@@ -1,4 +1,4 @@
-package go_exglobal
+package go_starpago
 
 import (
 	"crypto/tls"
@@ -7,21 +7,22 @@ import (
 )
 
 // withdraw
-func (cli *Client) Withdraw(req ExglobalWithdrawReq) (*ExglobalWithdrawResponse, error) {
+func (cli *Client) Withdraw(req StarPagoWithdrawReq) (*StarPagoWithdrawResponse, error) {
 
 	rawURL := cli.Params.WithdrawUrl
 
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
-	params["uid"] = cli.Params.MerchantId
-	params["channelCode"] = "BankDirect" //写死
+	params["appId"] = cli.Params.MerchantId
+	params["notifyUrl"] = cli.Params.WithdrawBackUrl
+	params["payMethod"] = "PK_DF" //fixed 巴基斯坦代付
 
 	//签名
 	signStr := utils.Sign(params, cli.Params.AccessKey)
-	params["signature"] = signStr
+	params["sign"] = signStr
 
 	//返回值会放到这里
-	var result ExglobalWithdrawResponse
+	var result StarPagoWithdrawResponse
 
 	_, err := cli.ryClient.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).

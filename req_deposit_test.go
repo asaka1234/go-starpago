@@ -1,4 +1,4 @@
-package go_exglobal
+package go_starpago
 
 import (
 	"fmt"
@@ -21,13 +21,14 @@ func (l VLog) Errorf(format string, args ...interface{}) {
 	fmt.Printf(format+"\n", args...)
 }
 
-func TestDeposit(t *testing.T) {
+// 巴基斯坦 代收
+func TestPKDeposit(t *testing.T) {
 	vLog := VLog{}
 	//构造client
-	cli := NewClient(vLog, &ExglobalInitParams{MERCHANT_ID, ACCESS_SECRET, BACK_SECRET, DEPOSIT_URL, WITHDRAW_URL})
+	cli := NewClient(vLog, &StarPagoInitParams{MERCHANT_ID, ACCESS_SECRET, DEPOSIT_URL, WITHDRAW_URL, DEPOSIT_BACK_URL, WITHDRAW_BACK_URL})
 
 	//发请求
-	resp, err := cli.Deposit(GenDepositRequestDemo())
+	resp, err := cli.Deposit(GenKDepositRequestDemo())
 	if err != nil {
 		fmt.Printf("err:%s\n", err.Error())
 		return
@@ -35,12 +36,14 @@ func TestDeposit(t *testing.T) {
 	fmt.Printf("resp:%+v\n", resp)
 }
 
-func GenDepositRequestDemo() ExglobalDepositReq {
-	return ExglobalDepositReq{
-		MerchantOrderNo:  "323231224", //商户id
-		CurrencyCoinName: "VND",
-		//ChannelCode:      "ScanQRCode",
-		Amount:        100000,
-		PaymentMethod: 1,
+// 巴基斯坦
+func GenKDepositRequestDemo() StarPagoDepositReq {
+	return StarPagoDepositReq{
+		MerOrderNo: "323231224", //商户id
+		Currency:   "PKR",
+		Amount:     "100000",
+		Extra: StarPagoPKDepositReqExtra{
+			PayType: "PK_WALLET_EASYPAISA", //这个不需要其他参数
+		},
 	}
 }
