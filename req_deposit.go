@@ -11,8 +11,13 @@ func (cli *Client) Deposit(req StarPagoDepositReq) (*StarPagoDepositResponse, er
 
 	rawURL := cli.Params.DepositUrl
 
+	var extraMap map[string]interface{}
+	mapstructure.Decode(req.Extra, &extraMap)
+
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
+	params["extra"] = extraMap
+
 	params["appId"] = cli.Params.MerchantId
 	params["notifyUrl"] = cli.Params.DepositBackUrl
 

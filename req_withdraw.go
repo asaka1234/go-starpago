@@ -11,8 +11,13 @@ func (cli *Client) Withdraw(req StarPagoWithdrawReq) (*StarPagoWithdrawResponse,
 
 	rawURL := cli.Params.WithdrawUrl
 
+	var extraMap map[string]interface{}
+	mapstructure.Decode(req.Extra, &extraMap)
+
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
+	params["extra"] = extraMap
+
 	params["appId"] = cli.Params.MerchantId
 	params["notifyUrl"] = cli.Params.WithdrawBackUrl
 

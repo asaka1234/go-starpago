@@ -1,7 +1,7 @@
 package go_starpago
 
 type StarPagoInitParams struct {
-	MerchantId int64  `json:"merchantId" mapstructure:"merchantId" config:"merchantId"  yaml:"merchantId"` // merchantId
+	MerchantId string `json:"merchantId" mapstructure:"merchantId" config:"merchantId"  yaml:"merchantId"` // merchantId
 	AccessKey  string `json:"accessKey" mapstructure:"accessKey" config:"accessKey"  yaml:"accessKey"`     //接入秘钥
 	Ip         string `json:"ip" mapstructure:"ip" config:"ip"  yaml:"ip"`                                 //回调时,对方的ip白名单
 
@@ -21,11 +21,11 @@ type CommonResp struct {
 
 type StarPagoDepositReq struct {
 	Amount     string      `json:"amount" mapstructure:"amount"`           // 金额
-	Attach     *string     `json:"attach,omitempty" mapstructure:"attach"` // 附加信息, 商户附加信息，原样返回
+	Attach     string      `json:"attach,omitempty" mapstructure:"attach"` // 附加信息, 商户附加信息，原样返回
 	Currency   string      `json:"currency" mapstructure:"currency"`       // 金额币种, PKR
 	MerOrderNo string      `json:"merOrderNo" mapstructure:"merOrderNo"`   // 商户订单号, 商户订单号
 	Extra      interface{} `json:"extra" mapstructure:"extra"`
-	PayMethod  string      `json:"payMethod"` //代收方式
+	PayMethod  string      `json:"payMethod" mapstructure:"payMethod"` //代收方式
 	// 以下sdk帮搞
 	// AppID string `json:"appId"` // 应用号, appID
 	// NotifyURL  string                  `json:"notifyUrl"`           // 异步通知地址, 异步通知地址
@@ -34,12 +34,13 @@ type StarPagoDepositReq struct {
 
 // 巴基斯坦 extra
 type StarPagoPKDepositReqExtra struct {
-	PayType  string  `json:"payType" mapstructure:"payType"`             //  代收钱包选择: PK_WALLET_JAZZCASH / PK_WALLET_EASYPAISA 其中一个
-	AutoFill *string `json:"autoFill,omitempty" mapstructure:"autoFill"` // 收银台页面是否自动填充提交上来的用户信息(1: 是, 0: 否) 默认值为 0
-	Direct   *string `json:"direct,omitempty" mapstructure:"direct"`     //// 支持用户直连钱包，无需跳转到其他三方收银台(1: 直连, 0: 不直连) 默认值为0
-
-	AccountNo *string `json:"accountNo,omitempty" mapstructure:"accountNo"` // 巴基斯坦的用户cnic: payType 为 PK_WALLET_JAZZCASH 时该项必填
-	Mobile    *string `json:"mobile" mapstructure:"mobile"`                 // 03开头的11位数字（当autoFill="1"或者direct="1"的时候需要传真实的电话号码，否则用户钱包可能收不到支付信息）
+	//这2个必填
+	PayType string `json:"payType" mapstructure:"payType"` //  代收钱包选择: PK_WALLET_JAZZCASH / PK_WALLET_EASYPAISA 其中一个
+	Mobile  string `json:"mobile" mapstructure:"mobile"`   // 03开头的11位数字（当autoFill="1"或者direct="1"的时候需要传真实的电话号码，否则用户钱包可能收不到支付信息）
+	//option
+	AutoFill  string `json:"autoFill,omitempty" mapstructure:"autoFill"`   // 收银台页面是否自动填充提交上来的用户信息(1: 是, 0: 否) 默认值为 0
+	Direct    string `json:"direct,omitempty" mapstructure:"direct"`       //// 支持用户直连钱包，无需跳转到其他三方收银台(1: 直连, 0: 不直连) 默认值为0
+	AccountNo string `json:"accountNo,omitempty" mapstructure:"accountNo"` // 巴基斯坦的用户cnic: payType 为 PK_WALLET_JAZZCASH 时该项必填
 }
 
 // 菲律宾 extra
@@ -47,7 +48,6 @@ type StarPagoPHDepositReqExtra struct {
 	Email       string `json:"email"`
 	Phone       string `json:"phone"`
 	AccountName string `json:"accountName"`
-	ChannelCode string `json:"channelCode"`
 }
 
 // 返回数据
@@ -101,11 +101,11 @@ type StarPagoDepositBackReq struct {
 
 type StarPagoWithdrawReq struct {
 	Amount     string      `json:"amount" mapstructure:"amount"`         // 金额
-	Attach     *string     `json:"attach" mapstructure:"attach"`         // 附加信息, 商户附加信息，原样返回
+	Attach     string      `json:"attach" mapstructure:"attach"`         // 附加信息, 商户附加信息，原样返回
 	Currency   string      `json:"currency" mapstructure:"currency"`     // 金额币种, PKR
 	Extra      interface{} `json:"extra" mapstructure:"extra"`           // 扩展信息 (代付给谁)
 	MerOrderNo string      `json:"merOrderNo" mapstructure:"merOrderNo"` // 商户订单号, 商户订单号
-	PayMethod  string      `json:"payMethod"`                            // 代付方式
+	PayMethod  string      `json:"payMethod" mapstructure:"payMethod"`   // 代付方式
 	//以下sdk设置
 	//AppID string `json:"appId"` // 应用号, appID
 	//NotifyURL string `json:"notifyUrl"` // 异步通知地址, 异步通知地址
@@ -132,11 +132,11 @@ type StarPagoPKWithdrawReqExtra struct {
 
 // 菲律宾 extra
 type StarPagoPHWithdrawReqExtra struct {
-	Email       string `json:"email"`
-	Phone       string `json:"phone"` //或者是 mobile
-	BankCode    string `json:"bankCode"`
-	AccountNo   string `json:"accountNo"`
-	AccountName string `json:"accountName"`
+	Email       string `json:"email" mapstructure:"email"`
+	Mobile      string `json:"mobile" mapstructure:"mobile"`
+	BankCode    string `json:"bankCode" mapstructure:"bankCode"`
+	AccountNo   string `json:"accountNo" mapstructure:"accountNo"`
+	AccountName string `json:"accountName" mapstructure:"accountName"`
 }
 
 // 返回数据
